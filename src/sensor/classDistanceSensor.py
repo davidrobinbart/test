@@ -20,6 +20,9 @@ class DistanceSensor(Sensor):
         GPIO.setup(self.GPIOecho, GPIO.IN)
 
     def _readDistance(self):
+        temperature = self.temperatureSensor.readData()
+  
+        ''' time critical section - begin '''      
         GPIO.output(self.GPIOtrigger, True)
         time.sleep(0.00001)
         GPIO.output(self.GPIOtrigger, False)
@@ -27,19 +30,17 @@ class DistanceSensor(Sensor):
         startTime = time.time()
         stopTime= time.time()
         
-        temperature = self.temperatureSensor.readData()
-        
         while GPIO.input(self.GPIOecho) == 0:
             startTime = time.time()
         
         while GPIO.input(self.GPIOecho) == 1:
             stopTime = time.time()
-        
-        timeElapsed = startTime - stopTime
-        
-        # calculate distance from time elapsed and temperature in centimeters (*100)
-        return (timeElapsed * (331.5 + 0.6 * temperature) / 2) * 100
+       
+        ''' time critical section -end '''  
+       
+        ''' calculate distance from time elapsed and temperature in centimeters (* 100) '''
+        return ((stopTime - startTime) * (331.5 + 0.6 * temperature) / 2) * 100
 
     def getSensorData(self):
-        return self.temperatureSensor.readData()
+        return self._readDistance()
     

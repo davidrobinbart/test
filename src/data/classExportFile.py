@@ -4,6 +4,8 @@ Created on 19.11.2015
 @author: romanborn
 '''
 import json
+import time
+import uuid
 
 class ExportFile:
 
@@ -48,6 +50,8 @@ class ExportFile:
             }
         
         exportData['station'] = data['station']
+        exportData['timestamp'] = time.time()
+        exportData['uuid'] = str(uuid.uuid4())
             
         with open(self.path + self.name, 'w') as f:
             json.dump(exportData, f)

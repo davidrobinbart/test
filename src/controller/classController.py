@@ -34,39 +34,40 @@ class Controller:
     def run(self):
         self._readConfig()
         
-        export = ExportFile(self.exportPath, self.exportFile)
-        export.wirte({'station':self.station, 'stationDesciption':self.stationDescription})
+        exportFile = ExportFile(self.exportPath, self.exportFile)
         
         contactSensor = ContactSensor(17)
-        
         temperatureSensor = TemperatureSensor(4)
         distanceSensor = DistanceSensor(22, 27, temperatureSensor)
         
         lampUV = Lamp(18)
-        lampUV.on()
-        time.sleep(1)
-        lampUV.off()
-        
-        time.sleep(1)
-        
         pumpExtraWater = Pump(23)
-        pumpExtraWater.start()
-        time.sleep(1)
-        pumpExtraWater.stop()
-
-        time.sleep(1)
-
         pumpCycleWater = Pump(24)
-        pumpCycleWater.start()
-        time.sleep(1)
-        pumpCycleWater.stop()
+        
+        counter = 0
+        distanceSum = 0
+        
+        while True:
+            counter += 1
+            distanceSum += distanceSensor.readData()
+ 
+            print('contact ' + contactSensor.readData())
+            print('temperature ' + str(temperatureSensor.readData()))
+            print('lamp on? ' + str(lampUV.isOn()))
+            print('pump extra water on? ' + str(pumpExtraWater.isOn()))
+            print('pump cycle water on? ' + str(pumpCycleWater.isOn()))
+            
+            if (counter == 30):    
+                print('distance ' + str((distanceSum / 30)))
+        
+                exportFile.wirte({'station':self.station, 'stationDesciption':self.stationDescription})
+
+            if (counter > 30): 
+                counter = 0
+                distanceSum = 0
+        
+            print('---')
+            time.sleep(1)
         
         
-        
-        print('contact ' + contactSensor.readData())
-        print('temperature ' + str(temperatureSensor.readData()))
-        print('distance ' + str(distanceSensor.readData()))
-        print('lamp on? ' + str(lampUV.isOn()))
-        print('pump extra water on? ' + str(pumpExtraWater.isOn()))
-        print('pump cycle water on? ' + str(pumpCycleWater.isOn()))
         
