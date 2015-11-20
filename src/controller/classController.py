@@ -63,12 +63,10 @@ class Controller:
         
         
         
-        print('contact' + contactSensor.readData())
-        print('temperature' + temperatureSensor.readData())
-        print('distance' + distanceSensor.readData())
-        print('lamp on?' + lampUV.isOn())
-        print('pump extra water on?' + pumpExtraWater.isOn())
-        print('pump cycle water on?' + pumpCycleWater.isOn())
-        
-        
+        print('contact ' + contactSensor.readData())
+        print('temperature ' + str(temperatureSensor.readData()))
+        print('distance ' + str(distanceSensor.readData()))
+        print('lamp on? ' + str(lampUV.isOn()))
+        print('pump extra water on? ' + str(pumpExtraWater.isOn()))
+        print('pump cycle water on? ' + str(pumpCycleWater.isOn()))
         

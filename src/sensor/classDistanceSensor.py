@@ -8,7 +8,8 @@ from .classSensor import Sensor
 
 class DistanceSensor(Sensor):
 
-    def __init__(self, temperatureSensor):
+    def __init__(self, port, temperatureSensor):
+        self.GPIOport = port
         self.temperatureSensor = temperatureSensor
 
     def getSensorData(self):

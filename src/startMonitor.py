@@ -18,6 +18,9 @@ if __name__ == '__main__':
     except (KeyboardInterrupt):
         print("keyboard interrupt")
         GPIO.cleanup()
-        
+    
+    '''    
     except:
         GPIO.cleanup()
+    '''
+    
