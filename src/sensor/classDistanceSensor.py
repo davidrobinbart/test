@@ -10,6 +10,6 @@ from .classTemperatureSensor import TemperatureSensor
 class DistanceSensor(Sensor):
 
     def getSensorData(self):
-        temperature = TemperatureSensor()
+        temperature = TemperatureSensor(0)
         return 1 + temperature.readData()
     
