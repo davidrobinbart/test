@@ -40,7 +40,7 @@ class Controller:
         contactSensor = ContactSensor(17)
         
         temperatureSensor = TemperatureSensor(4)
-        distanceSensor = DistanceSensor(0, temperatureSensor)
+        distanceSensor = DistanceSensor(22, 27, temperatureSensor)
         
         lampUV = Lamp(18)
         lampUV.on()
