@@ -11,6 +11,7 @@ from actuator.classLamp import Lamp
 from data.classExportFile import ExportFile
 
 import configparser
+import time
 
 class Controller:
 
@@ -39,14 +40,26 @@ class Controller:
         
         distance = DistanceSensor()
         
-        lampUV = Lamp()
+        lampUV = Lamp(18)
         lampUV.on()
+        time.sleep(3)
+        lampUV.off()
         
-        pumpExtraWater = Pump()
+        time.sleep(3)
+        
+        pumpExtraWater = Pump(23)
+        pumpExtraWater.start()
+        time.sleep(3)
         pumpExtraWater.stop()
 
-        pumpCycleWater = Pump()
+        time.sleep(3)
+
+        pumpCycleWater = Pump(24)
         pumpCycleWater.start()
+        time.sleep(3)
+        pumpCycleWater.stop()
+        
+        
         
         print(contact.readData())
         print(distance.readData())
