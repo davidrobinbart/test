@@ -12,6 +12,6 @@ class ContactSensor(Sensor):
 
     def getSensorData(self):
         if (GPIO.input(self.GPIOport) != 0):
-            return 'open'
-        else:
             return 'closed'
+        else:
+            return 'open'
