@@ -36,27 +36,27 @@ class Controller:
         export = ExportFile(self.exportPath, self.exportFile)
         export.wirte({'station':self.station, 'stationDesciption':self.stationDescription})
         
-        contact = ContactSensor()
+        contact = ContactSensor(17)
         
         distance = DistanceSensor()
         
         lampUV = Lamp(18)
         lampUV.on()
-        time.sleep(3)
+        time.sleep(1)
         lampUV.off()
         
-        time.sleep(3)
+        time.sleep(1)
         
         pumpExtraWater = Pump(23)
         pumpExtraWater.start()
-        time.sleep(3)
+        time.sleep(1)
         pumpExtraWater.stop()
 
-        time.sleep(3)
+        time.sleep(1)
 
         pumpCycleWater = Pump(24)
         pumpCycleWater.start()
-        time.sleep(3)
+        time.sleep(1)
         pumpCycleWater.stop()
         
         

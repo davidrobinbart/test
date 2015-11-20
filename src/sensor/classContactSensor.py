@@ -6,7 +6,9 @@ Created on 19.11.2015
 
 from .classSensor import Sensor
 
+from RPi import GPIO #@UnresolvedImport
+
 class ContactSensor(Sensor):
 
     def getSensorData(self):
-        return 0
+        return (GPIO.input(self.GPIOport) == 0)
