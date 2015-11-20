@@ -11,4 +11,7 @@ from RPi import GPIO #@UnresolvedImport
 class ContactSensor(Sensor):
 
     def getSensorData(self):
-        return (GPIO.input(self.GPIOport) == 0)
+        if (GPIO.input(self.GPIOport) != 0):
+            return 'open'
+        else:
+            return 'closed'

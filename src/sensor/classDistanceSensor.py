@@ -5,11 +5,12 @@ Created on 19.11.2015
 '''
 
 from .classSensor import Sensor
-from .classTemperatureSensor import TemperatureSensor
 
 class DistanceSensor(Sensor):
 
+    def __init__(self, temperatureSensor):
+        self.temperatureSensor = temperatureSensor
+
     def getSensorData(self):
-        temperature = TemperatureSensor(0)
-        return 1 + temperature.readData()
+        return 1 + self.temperatureSensor.readData()
     

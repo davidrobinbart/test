@@ -5,6 +5,7 @@ Created on 19.11.2015
 '''
 
 from sensor.classContactSensor import ContactSensor
+from sensor.classTemperatureSensor import TemperatureSensor
 from sensor.classDistanceSensor import DistanceSensor
 from actuator.classPump import Pump
 from actuator.classLamp import Lamp
@@ -36,9 +37,10 @@ class Controller:
         export = ExportFile(self.exportPath, self.exportFile)
         export.wirte({'station':self.station, 'stationDesciption':self.stationDescription})
         
-        contact = ContactSensor(17)
+        contactSensor = ContactSensor(17)
         
-        distance = DistanceSensor(0)
+        temperatureSensor = TemperatureSensor(4)
+        distanceSensor = DistanceSensor(0, temperatureSensor)
         
         lampUV = Lamp(18)
         lampUV.on()
@@ -61,11 +63,12 @@ class Controller:
         
         
         
-        print(contact.readData())
-        print(distance.readData())
-        print(lampUV.isOn())
-        print(pumpExtraWater.isOn())
-        print(pumpCycleWater.isOn())
+        print('contact' + contactSensor.readData())
+        print('temperature' + temperatureSensor.readData())
+        print('distance' + distanceSensor.readData())
+        print('lamp on?' + lampUV.isOn())
+        print('pump extra water on?' + pumpExtraWater.isOn())
+        print('pump cycle water on?' + pumpCycleWater.isOn())
         
         
         

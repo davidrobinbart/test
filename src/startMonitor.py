@@ -12,7 +12,12 @@ if __name__ == '__main__':
     try:
         controller = Controller('params.ini')
         controller.run()
+        
+        GPIO.cleanup()
     
     except (KeyboardInterrupt):
-        print("stopping...")
+        print("keyboard interrupt")
+        GPIO.cleanup()
+        
+    except:
         GPIO.cleanup()
