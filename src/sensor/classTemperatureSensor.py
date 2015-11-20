@@ -10,8 +10,16 @@ import Adafruit_DHT #@UnresolvedImport
 
 class TemperatureSensor(Sensor):
     
+    def _getTemperature(self):
+        _, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, self.GPIOport)
+        return temperature
+    
+    def _getHumidity(self):
+        humidity, _ = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, self.GPIOport)
+        return humidity
+    
     def getSensorData(self):
-        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, self.GPIOport)
+        temperature = self._getTemperature()
         
         if temperature is not None:
             return temperature
