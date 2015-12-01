@@ -27,13 +27,13 @@ class Controller:
         
         self.lampTimeout = config[self.paramSection]['lamp_timeout']
         
-        self.distanceMin = config[self.paramSection]['distance_min']
-        self.distanceMax = config[self.paramSection]['distance_max']
-        self.distanceIntervall = config[self.paramSection]['distance_intervall']
+        self.distanceMin = int(config[self.paramSection]['distance_min'])
+        self.distanceMax = int(config[self.paramSection]['distance_max'])
+        self.distanceIntervall = int(config[self.paramSection]['distance_intervall'])
         
         self.exportPath = config[self.paramSection]['export_path']
         self.exportFile = config[self.paramSection]['export_file']
-        self.exportFileIntervall = config[self.paramSection]['export_file_intervall']
+        self.exportFileIntervall = int(config[self.paramSection]['export_file_intervall'])
         
         self.station = config[self.paramSection]['station']
         self.stationDescription = config[self.paramSection]['station_description']
@@ -44,13 +44,13 @@ class Controller:
         self.actuatorExtraWaterDescription = config[self.paramSection]['actuator_pump_extra_water_description']
         self.actuatorCycleWaterDescription = config[self.paramSection]['actuator_pump_cylce_water_description']
 
-        self.gpioContact = config[self.paramSection]['gpio_contact']
-        self.gpioTemperature = config[self.paramSection]['gpio_temperature']
-        self.gpioDistanceTrigger = config[self.paramSection]['gpio_distance_trigger']
-        self.gpioDistanceEcho = config[self.paramSection]['gpio_distance_echo']
-        self.gpioLamp = config[self.paramSection]['gpio_lamp']
-        self.gpioPumpExtraWater = config[self.paramSection]['gpio_pump_extra_water']
-        self.gpioPumpCycleWater = config[self.paramSection]['gpio_pump_cycle_water']
+        self.gpioContact = int(config[self.paramSection]['gpio_contact'])
+        self.gpioTemperature = int(config[self.paramSection]['gpio_temperature'])
+        self.gpioDistanceTrigger = int(config[self.paramSection]['gpio_distance_trigger'])
+        self.gpioDistanceEcho = int(config[self.paramSection]['gpio_distance_echo'])
+        self.gpioLamp = int(config[self.paramSection]['gpio_lamp'])
+        self.gpioPumpExtraWater = int(config[self.paramSection]['gpio_pump_extra_water'])
+        self.gpioPumpCycleWater = int(config[self.paramSection]['gpio_pump_cycle_water'])
         
     def run(self):
         self._readConfig()
@@ -75,15 +75,15 @@ class Controller:
         
         counter = 0
         distanceSum = 0
-        actualDistance = (int(self.distanceMin) + int(self.distanceMax)) / 2
+        actualDistance = (self.distanceMin + self.distanceMax) / 2
         
         while True:
             counter += 1
             distanceSum += distanceSensor.readData()
             
             ''' calculate distance '''
-            if (counter == int(self.distanceIntervall)):    
-                actualDistance = distanceSum / int(self.distanceIntervall)
+            if (counter == self.distanceIntervall):    
+                actualDistance = distanceSum / self.distanceIntervall
                 counter = 0
                 distanceSum = 0
 
@@ -93,18 +93,18 @@ class Controller:
                 lampUV.off()
                 pumpCycleWater.stop()
                 pumpExtraWater.stop()
-            elif (actualDistance <= int(self.distanceMin)):
+            elif (actualDistance >= self.distanceMax):
                 lampUV.off()
                 pumpCycleWater.stop()
                 pumpExtraWater.start()
             else:
                 lampUV.on()
                 pumpCycleWater.start()
-                if (actualDistance >= int(self.distanceMax)): pumpExtraWater.stop()
+                if (actualDistance <= self.distanceMin): pumpExtraWater.stop()
 
 
             ''' write file '''
-            if (counter % int(self.exportFileIntervall) == 0):
+            if (counter % self.exportFileIntervall == 0):
                 exportFile.wirte(contactSensor, temperatureSensor, distanceSensor, 
                                  lampUV, pumpExtraWater, pumpCycleWater)
 

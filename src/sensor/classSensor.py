@@ -4,7 +4,7 @@ Created on 19.11.2015
 @author: romanborn
 '''
 
-#REMOVE#from RPi import GPIO #@UnresolvedImport
+from RPi import GPIO #@UnresolvedImport
 
 class Sensor:
 
@@ -13,8 +13,8 @@ class Sensor:
         self.description = description
         self.lastValue = None
         
-        #REMOVE#GPIO.setmode(GPIO.BCM)
-        #REMOVE#GPIO.setup(self.GPIOport, GPIO.IN)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.GPIOport, GPIO.IN)
     
     def _getSensorData(self):
         pass

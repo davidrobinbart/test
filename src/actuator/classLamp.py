@@ -4,7 +4,7 @@ Created on 19.11.2015
 @author: romanborn
 '''
 
-#REMOVE#from RPi import GPIO #@UnresolvedImport
+from RPi import GPIO #@UnresolvedImport
 from _thread import start_new_thread
 import time
 
@@ -17,10 +17,10 @@ class Lamp:
         
         self.inTimeout = False
         
-        #REMOVE#GPIO.setmode(GPIO.BCM)
-        #REMOVE#GPIO.setup(self.GPIOport, GPIO.OUT)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.GPIOport, GPIO.OUT)
         
-        #REMOVE#GPIO.output(self.GPIOport, False)
+        GPIO.output(self.GPIOport, False)
         self._powerOn = False
     
     def _timeoutSleep(self):
@@ -32,11 +32,11 @@ class Lamp:
     
     def on(self):
         if not (self.inTimeout):
-            #REMOVE#GPIO.output(self.GPIOport, True)
+            GPIO.output(self.GPIOport, True)
             self._powerOn = True
         
     def off(self):
-        #REMOVE#GPIO.output(self.GPIOport, False)
+        GPIO.output(self.GPIOport, False)
         self._powerOn = False
 
         if not (self.inTimeout):

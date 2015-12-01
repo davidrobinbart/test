@@ -5,7 +5,7 @@ Created on 19.11.2015
 '''
 
 from controller.classController import Controller
-#REMOVE#from RPi import GPIO #@UnresolvedImport
+from RPi import GPIO #@UnresolvedImport
 
 import traceback
 import sys
@@ -19,13 +19,13 @@ if __name__ == '__main__':
 
         controller.run()
         
-        #REMOVE#GPIO.cleanup()
+        GPIO.cleanup()
     
     except (KeyboardInterrupt):
-        #REMOVE#GPIO.cleanup()
+        GPIO.cleanup()
         print("keyboard interrupt")
         
     except:
-        #REMOVE#GPIO.cleanup()
+        GPIO.cleanup()
         print("*** EXCEPTION ***")
         print(traceback.format_exc())
