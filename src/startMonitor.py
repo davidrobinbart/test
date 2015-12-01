@@ -5,22 +5,27 @@ Created on 19.11.2015
 '''
 
 from controller.classController import Controller
+#REMOVE#from RPi import GPIO #@UnresolvedImport
 
-from RPi import GPIO #@UnresolvedImport
+import traceback
+import sys
 
 if __name__ == '__main__':
     try:
-        controller = Controller('params.ini')
+        if (len(sys.argv) > 1):
+            controller = Controller('params.ini', sys.argv[1])
+        else:
+            controller = Controller('params.ini')
+
         controller.run()
         
-        GPIO.cleanup()
+        #REMOVE#GPIO.cleanup()
     
     except (KeyboardInterrupt):
+        #REMOVE#GPIO.cleanup()
         print("keyboard interrupt")
-        GPIO.cleanup()
-    
-    '''    
+        
     except:
-        GPIO.cleanup()
-    '''
-    
+        #REMOVE#GPIO.cleanup()
+        print("*** EXCEPTION ***")
+        print(traceback.format_exc())

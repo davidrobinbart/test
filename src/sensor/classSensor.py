@@ -4,19 +4,23 @@ Created on 19.11.2015
 @author: romanborn
 '''
 
-from RPi import GPIO #@UnresolvedImport
+#REMOVE#from RPi import GPIO #@UnresolvedImport
 
 class Sensor:
 
-    def __init__(self, port):
+    def __init__(self, port, description = ''):
         self.GPIOport = port
+        self.description = description
+        self.lastValue = None
         
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.GPIOport, GPIO.IN)
+        #REMOVE#GPIO.setmode(GPIO.BCM)
+        #REMOVE#GPIO.setup(self.GPIOport, GPIO.IN)
     
-    def getSensorData(self):
+    def _getSensorData(self):
         pass
         
     def readData(self):
-        return self.getSensorData()
+        return self._getSensorData()
     
+    def getLastValue(self):
+        return self.lastValue

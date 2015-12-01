@@ -6,12 +6,14 @@ Created on 19.11.2015
 
 from .classSensor import Sensor
 
-from RPi import GPIO #@UnresolvedImport
+#REMOVE#from RPi import GPIO #@UnresolvedImport
 
 class ContactSensor(Sensor):
 
-    def getSensorData(self):
-        if (GPIO.input(self.GPIOport) != 0):
-            return 'closed'
+    def _getSensorData(self):
+        #REMOVE#if (GPIO.input(self.GPIOport) != 0):
+        if True: #REMOVE#
+            self.lastValue = 'close'
         else:
-            return 'open'
+            self.lastValue = 'open'
+        return self.lastValue
