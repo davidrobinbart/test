@@ -116,7 +116,7 @@ class Controller:
             print('pump extra water on? ' + str(pumpExtraWater.isOn()))
             print('pump cycle water on? ' + str(pumpCycleWater.isOn()))
             print('actual distance ' + str(actualDistance))
-            print(str(counter) + ' ' + self.distanceIntervall)
+            print(str(counter) + ' ' + str(self.distanceIntervall))
             print('----------------------------------------')
             ''' debug end '''
 
