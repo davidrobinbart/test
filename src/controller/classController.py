@@ -119,8 +119,9 @@ class Controller:
 
 
             ''' debug start '''
-            print('contact ' + contactSensor.readData())
-            print('temperature ' + str(temperatureSensor.readData()))
+            print(time.strftime("%d.%m.%Y %H:%M:%S", time.localtime()))
+            print('contact ' + contactSensor.lastValue)
+            print('temperature ' + str(temperatureSensor.lastValue))
             print('lamp on? ' + str(lampUV.isOn()))
             print('pump extra water on? ' + str(pumpExtraWater.isOn()))
             print('pump cycle water on? ' + str(pumpCycleWater.isOn()))
@@ -129,7 +130,7 @@ class Controller:
             print('----------------------------------------')
             ''' debug end '''
 
-            time.sleep(1)
+            time.sleep(0.3)
         
         
         
