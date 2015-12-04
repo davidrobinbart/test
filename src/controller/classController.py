@@ -90,17 +90,26 @@ class Controller:
 
             ''' check states '''        
             if (contactSensor.readData() == 'open'):
-                lampUV.off()
-                pumpCycleWater.stop()
-                pumpExtraWater.stop()
+                if (lampUV.isOn()): 
+                    lampUV.off()
+                if (pumpCycleWater.isOn()): 
+                    pumpCycleWater.stop()
+                if (pumpExtraWater.isOn()): 
+                    pumpExtraWater.stop()
             elif (actualDistance >= self.distanceMax):
-                lampUV.off()
-                pumpCycleWater.stop()
-                pumpExtraWater.start()
+                if (lampUV.isOn()): 
+                    lampUV.off()
+                if (pumpCycleWater.isOn()):
+                    pumpCycleWater.stop()
+                if not (pumpExtraWater.isOn()):
+                    pumpExtraWater.start()
             else:
-                lampUV.on()
-                pumpCycleWater.start()
-                if (actualDistance <= self.distanceMin): pumpExtraWater.stop()
+                if not (lampUV.isOn()):
+                    lampUV.on()
+                if not (pumpCycleWater.isOn()):
+                    pumpCycleWater.start()
+                if ((actualDistance <= self.distanceMin) and (pumpExtraWater.isOn())):
+                    pumpExtraWater.stop()
 
 
             ''' write file '''
